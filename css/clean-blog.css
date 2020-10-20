@@ -412,14 +412,14 @@ footer .copyright {
 .container_eneas {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 400px;
 }
 
 .image_eneas {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 200px;
+  max-height: 400px;
   object-fit: cover;
 }
 
