@@ -23,7 +23,7 @@ $(function () {
         url: "https://contactmeinfosapi.herokuapp.com/contactme",
         type: "POST",
         headers: {
-          'Access-Control-Allow-Origin': 'http://eneaslari.github.io'
+          'Access-Control-Allow-Origin': 'https://eneaslari.github.io'
         },
         data: {
           Name: name,
