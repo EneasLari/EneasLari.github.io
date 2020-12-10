@@ -22,6 +22,9 @@ $(function () {
       $.ajax({
         url: "https://contactmeinfosapi.herokuapp.com/contactme",
         type: "POST",
+        headers: {
+          'Access-Control-Allow-Origin': 'http://eneaslari.github.io'
+        },
         data: {
           Name: name,
           Phone: phone,
