@@ -1,110 +1,61 @@
-
-
-$(function () {
-
-    $("#contactForm input,#contactForm textarea").jqBootstrapValidation({
-      preventSubmit: true,
-      submitError: function ($form, event, errors) {
-        // additional error messages or events
-      },
-      submitSuccess: function ($form, event) {
-        //event.preventDefault(); // prevent default submit behaviour
-        // get values from FORM
-        var name = $("input#name").val();
-        var email = $("input#email").val();
-        var phone = $("input#phone").val();
-        var message = $("textarea#message").val();
-        var firstName = name; // For Success/Failure Message
-        // Check for white space in name for Success/Fail message
-        if (firstName.indexOf(' ') >= 0) {
-          firstName = name.split(' ').slice(0, -1).join(' ');
-        }
-        $this = $("#sendMessageButton");
-        $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
-        // $.ajax({
-        //   url: "https://contactmeinfosapi.herokuapp.com/contactme",
-        //   type: "POST",
-        //   data: {
-        //     Name: name,
-        //     Phone: phone,
-        //     Email: email,
-        //     Message: message
-        //   },
-        //   cache: false,
-        //   success: function () {
-        //     // Success message
-        //     $('#success').html("<div class='alert alert-success'>");
-        //     $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-        //       .append("</button>");
-        //     $('#success > .alert-success')
-        //       .append("<strong>Your message has been sent. </strong>");
-        //     $('#success > .alert-success')
-        //       .append('</div>');
-        //     //clear all fields
-        //     $('#contactForm').trigger("reset");
-        //   },
-        //   error: function () {
-        //     // Fail message
-        //     $('#success').html("<div class='alert alert-danger'>");
-        //     $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-        //       .append("</button>");
-        //     $('#success > .alert-danger').append($("<strong>").text("Sorry " + firstName + ", it seems that my mail server is not responding. Please try again later!"));
-        //     $('#success > .alert-danger').append('</div>');
-        //     //clear all fields
-        //     $('#contactForm').trigger("reset");
-        //   },
-        //   complete: function () {
-        //     setTimeout(function () {
-        //       $this.prop("disabled", false); // Re-enable submit button when AJAX call is complete
-        //     }, 1000);
-        //   }
-        // });
-      },
-      filter: function () {
-        return $(this).is(":visible");
-      },
-    });
-  
-    $("a[data-toggle=\"tab\"]").click(function (e) {
-      e.preventDefault();
-      $(this).tab("show");
-    });
-  });
-  
-  /*When clicking on Full hide fail/success boxes */
-  $('#name').focus(function () {
-    $('#success').html('');
-  });
-
-  var newsletterform = document.getElementById("contactForm");
+var newsletterform = document.getElementById("contactForm");
 newsletterform.addEventListener("submit", function (event) {
-    event.preventDefault();
-    postEmail()
+  event.preventDefault();
+  postEmail()
 });
 
 function postEmail() {
-    var newsletterobject = "";
-    //get element like in the css
-    console.log(newsletterform)
-    var newsletterValue = newsletterform.querySelector("input[type=email]").value
-    console.log(newsletterValue)
-    var NameValue = "NewsLetterUser"
-    if (newsletterValue == "" || newsletterValue == null) {
-        //alertelement.appendChild(createBootstrapAlert("Please fill a Comment"))
-        return;
-    }
-    newsletterobject = {
-        Name: NameValue,
-        Email: newsletterValue,
-    }
-    console.log(newsletterobject)
-    newsletterform.querySelector("input[type=email]").value = "";
-    axios.post('https://contactmeinfosapi.herokuapp.com/contactme', newsletterobject)
-        .then(function (response) {
-            //newsletterssection.prepend(createBootstrapCard(NameValue, newsletterValue));
-            //console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+  var newsletterobject = "";
+  var button = document.getElementById("sendMessageButton");
+  button.disabled = true
+  //get element like in the css
+  var newsletterValue = newsletterform.querySelector("input[type=email]").value
+  var NameValue = "NewsLetterUser"
+  if (newsletterValue == "" || newsletterValue == null) {
+    createHelpMessage("Please enter your email address.", "text-danger")
+    button.disabled = false;
+    return;
+  } else if (!ValidateEmail(newsletterValue)) {
+    createHelpMessage("Please enter a valid email address.", "text-danger")
+    button.disabled = false;
+    return;
+  }
+  newsletterobject = {
+    Name: NameValue,
+    Email: newsletterValue,
+  }
+  newsletterform.querySelector("input[type=email]").value = "";
+  axios.post('https://contactmeinfosapi.herokuapp.com/contactme', newsletterobject)
+    .then(function (response) {
+      newsletterform.querySelector("input[type=email]").parentNode.remove()
+      var divsuccess = document.getElementById("success")
+      var divchild = document.createElement("div");
+      divchild.classList.add("alert", "alert-success")
+      divchild.innerHTML = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + "<strong>Thank you for subscription! </strong>"
+      divsuccess.appendChild(divchild)
+      button.remove()
+      return;
+    })
+    .catch(function (error) {
+      createHelpMessage("Error sending email to server.", "text-danger")
+    }).then(function () {
+      button.disabled = false
+    });
+}
+
+function ValidateEmail(mail) {
+  if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
+    return (true)
+  }
+  return (false)
+}
+
+function createHelpMessage(stringMessage, error) {
+  var p = document.getElementById("helpblock");
+  if (p.classList.length > 1) {
+    p.classList[1] = null;
+    p.innerHTML = "";
+  }
+  p.innerHTML="<ul role='alert'><li>"+stringMessage+ "</li></ul>"
+  p.classList.add(error);
 }
