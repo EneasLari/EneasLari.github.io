@@ -25,7 +25,7 @@ function postEmail() {
     Email: newsletterValue,
   }
   newsletterform.querySelector("input[type=email]").value = "";
-  axios.post('https://contactmeinfosapi.herokuapp.com/contactme', newsletterobject)
+  axios.post('https://contactmeinfosapi.herokuapp.com/contactinfos', newsletterobject)
     .then(function (response) {
       newsletterform.querySelector("input[type=email]").parentNode.remove()
       var divsuccess = document.getElementById("success")
