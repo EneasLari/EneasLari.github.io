@@ -437,3 +437,19 @@ footer .copyright {
   /* Safari 3-8 */
   transform: scale(1.05);
 }
+
+@keyframes tipsy {
+  0% {
+    transform: rotate(0deg);
+  }
+  25%{
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.anim-rotate {
+  animation: 2s 1 alternate ease-in-out tipsy;
+}

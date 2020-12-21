@@ -71,8 +71,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
   var speed = 50;
 
   var parentelement = document.getElementById("heading-title-animation")
-  var txt = parentelement.innerText;
-  typeWriter(parentelement, txt, speed, 2000)
+  if(parentelement){
+    var txt = parentelement.innerText;
+    typeWriter(parentelement, txt, speed, 2000)
+  }
+
 });
 
 var observer = new IntersectionObserver(function (entries) {
