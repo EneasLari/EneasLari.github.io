@@ -20,7 +20,7 @@ $(function () {
       $this = $("#sendMessageButton");
       $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
       $.ajax({
-        url: "https://contactmeinfosapi.herokuapp.com/contactme",
+        url: "https://contactmeinfosapi.herokuapp.com/contactinfos",
         type: "POST",
         data: {
           Name: name,

@@ -56,6 +56,6 @@ function createHelpMessage(stringMessage, error) {
     p.classList[1] = null;
     p.innerHTML = "";
   }
-  p.innerHTML="<ul role='alert'><li>"+stringMessage+ "</li></ul>"
+  p.innerHTML = "<ul role='alert'><li>" + stringMessage + "</li></ul>"
   p.classList.add(error);
 }
