@@ -522,3 +522,7 @@ footer .copyright {
 .container_eneas:hover .overlay_eneas h1 {
 
 }
+
+.noheaderH1{
+  font-size: 40px;
+}
