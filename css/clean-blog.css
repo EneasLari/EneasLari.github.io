@@ -464,7 +464,7 @@ footer .copyright {
 }
 
 .scaled .overlay_eneas {
-  transform: scale(1.5);
+  transform: scale(1.2);
   background: rgb(46, 46, 46, 0.3);
 }
 
@@ -478,6 +478,7 @@ footer .copyright {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   text-align: center;
+  inline-size: 80%;
 }
 
 #eneasp {
@@ -527,6 +528,7 @@ footer .copyright {
 
 .categorydesc {
   margin-top: 0px;
+  margin-bottom: 0px;
   font-weight: normal;
   font-size: 85%;
   font-family: 'Lora', 'Times New Roman', serif;
