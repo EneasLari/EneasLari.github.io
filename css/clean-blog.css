@@ -520,6 +520,26 @@ footer .copyright {
 }
 
 
+@keyframes slideInFromTop{
+  0% {
+    transform: translateY(-100%);
+  }
+  50%{
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.fromTop {
+  /* This section calls the slideInFromTop animation we defined above */
+  /* Set x2 the duration for the delay */
+  animation: 2s ease-out 0s 1 slideInFromTop;
+}
+
+
 .container_eneas:hover .overlay_eneas h1 {}
 
 .noheaderH1 {
@@ -532,4 +552,32 @@ footer .copyright {
   font-weight: normal;
   font-size: 85%;
   font-family: 'Lora', 'Times New Roman', serif;
+}
+
+.card-zoom {
+  transition: transform .2s;
+}
+
+.card-zoom:hover {
+  -ms-transform: scale(1.05);
+  /* IE 9 */
+  -webkit-transform: scale(1.05);
+  /* Safari 3-8 */
+  transform: scale(1.05);
+}
+
+@keyframes tipsy {
+  0% {
+    transform: rotate(0deg);
+  }
+  25%{
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.anim-rotate {
+  animation: 2s 1 alternate ease-in-out tipsy;
 }
